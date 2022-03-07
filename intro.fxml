@@ -1,0 +1,54 @@
+// Code Made by Scene Builder
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="556.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+   <children>
+      <Label alignment="CENTER" layoutX="128.0" layoutY="51.0" prefHeight="46.0" prefWidth="278.0" text="NASA MARS Images Database">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <DatePicker fx:id="dateInput" layoutX="153.0" layoutY="108.0" onAction="#setImage" prefHeight="37.0" prefWidth="269.0" />
+      <Label layoutX="53.0" layoutY="108.0" prefHeight="37.0" prefWidth="167.0" text="Pick a Date: ">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imageV" fitHeight="227.0" fitWidth="260.0" layoutX="251.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />
+      <ScrollPane fx:id="pictureList" layoutX="20.0" layoutY="169.0" prefHeight="370.0" prefWidth="220.0">
+         <content>
+            <MenuBar fx:id="menuBar" accessibleRole="CONTEXT_MENU" prefHeight="25.0" prefWidth="218.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </content>
+      </ScrollPane>
+      <TextField fx:id="imageInfo" editable="false" layoutX="251.0" layoutY="404.0" prefHeight="131.0" prefWidth="260.0" />
+   </children>
+</AnchorPane>
