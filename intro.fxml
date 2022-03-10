@@ -2,10 +2,7 @@
 
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,29 +21,7 @@
          </font>
       </Label>
       <ImageView fx:id="imageV" fitHeight="227.0" fitWidth="260.0" layoutX="251.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />
-      <ScrollPane fx:id="pictureList" layoutX="20.0" layoutY="169.0" prefHeight="370.0" prefWidth="220.0">
-         <content>
-            <MenuBar fx:id="menuBar" accessibleRole="CONTEXT_MENU" prefHeight="25.0" prefWidth="218.0">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </content>
-      </ScrollPane>
       <TextField fx:id="imageInfo" editable="false" layoutX="251.0" layoutY="404.0" prefHeight="131.0" prefWidth="260.0" />
+      <ListView fx:id="photoList" layoutX="20.0" layoutY="159.0" onInputMethodTextChanged="#imageSelect" onMouseClicked="#imageSelect" prefHeight="377.0" prefWidth="221.0" />
    </children>
 </AnchorPane>
