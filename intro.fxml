@@ -3,7 +3,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -20,8 +20,8 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <ImageView fx:id="imageV" fitHeight="227.0" fitWidth="260.0" layoutX="251.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="imageInfo" editable="false" layoutX="251.0" layoutY="404.0" prefHeight="131.0" prefWidth="260.0" />
-      <ListView fx:id="photoList" layoutX="20.0" layoutY="159.0" onInputMethodTextChanged="#imageSelect" onMouseClicked="#imageSelect" prefHeight="377.0" prefWidth="221.0" />
+      <ImageView fx:id="imageV" fitHeight="248.0" fitWidth="310.0" layoutX="191.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
+      <ListView fx:id="photoList" layoutX="20.0" layoutY="159.0" onInputMethodTextChanged="#imageSelect" onKeyPressed="#setImage" onMouseClicked="#imageSelect" prefHeight="377.0" prefWidth="157.0" />
+      <TextArea fx:id="imageInfo" layoutX="191.0" layoutY="419.0" prefHeight="117.0" prefWidth="310.0" />
    </children>
 </AnchorPane>

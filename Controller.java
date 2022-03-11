@@ -41,7 +41,7 @@ public class Controller {
 	@FXML
 	private DatePicker dateInput;
 	@FXML
-	private TextField imageInfo;
+	private TextArea imageInfo;
 	@FXML
 	private ListView<String> photoList;
 	
@@ -59,8 +59,6 @@ public class Controller {
 		
 	// Creation of the Date the User Inputs	
 	LocalDate sDate = dateInput.getValue();
-	
-	System.out.println(sDate);
 	
 	// Formation of apiKey for the date entered
 	String apiKey = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date="+sDate+"&api_key=Ri7l2K0C8IcYrKQRAtbYGekgYZekkJqS8G1ZMBkU";
@@ -87,8 +85,6 @@ public class Controller {
 	}
 	
 	scan.close();
-	
-	System.out.println(apiKey);
 	
 	//JSON String from the Result Returned
 	
@@ -133,6 +129,11 @@ public class Controller {
 		photos.add(rPhoto);		
 	}
 	
+	// Change our Data Structure
+	
+	photoIds.clear();
+	
+	idToPhoto.clear();
 	
 	for (int i = 0;i<photos.size();i++) {
 		
@@ -143,14 +144,14 @@ public class Controller {
 	}
 	
 	
-	// Update the Image
+	// Update the Image List
 	photoList.getItems().clear();
 	photoList.getItems().addAll(photoIds);
 	
 	conn.disconnect();
 	
 	}
-	
+	// Update the Image after selection
 	public void imageSelect() throws IOException {
 		
 		photoIdSelected = photoList.getSelectionModel().getSelectedIndex();
@@ -158,7 +159,18 @@ public class Controller {
 		Image image = new Image(photos.get(photoIdSelected).getImgSrc());
 		
 		imageV.setImage(image);
-
+		
+		imageInfo.setText("Photo ID: "+photos.get(photoIdSelected).getId()+"\n"+
+		"Sol: "+photos.get(photoIdSelected).getSol()+"\n"
+		+"Camera ID: "+photos.get(photoIdSelected).getCameraId()+"\n"
+		+"Camera Name: "+photos.get(photoIdSelected).getCameraName()+"\n"
+		+"Rover ID: "+photos.get(photoIdSelected).getRoverId()+"\n"
+		+"Date: "+photos.get(photoIdSelected).getDate()+"\n"
+		+"Rover Name: "+photos.get(photoIdSelected).getRoverName()+"\n"
+		+"Rover Landing Date"+photos.get(photoIdSelected).getLandD()+"\n"
+		+"Rover Launching Date: "+photos.get(photoIdSelected).getLaunchD()+"\n"
+		+"Rover Status"+photos.get(photoIdSelected).getRoverStatus()+"\n"
+		);
 		
 	}
 	
