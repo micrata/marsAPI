@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,6 +46,8 @@ public class Controller {
 	private TextArea imageInfo;
 	@FXML
 	private ListView<String> photoList;
+	@FXML
+	private TextField imgSrcText;
 	
 	ArrayList<Photo>photos = new ArrayList<Photo>();
 	
@@ -120,7 +124,7 @@ public class Controller {
 		
 		rPhoto.setRoverName(rover.getString("name"));
 		
-		rPhoto.setRoverStatus("status");
+		rPhoto.setRoverStatus(rover.getString("status"));
 		
 		rPhoto.setLandD(rover.getString("landing_date"));
 		
@@ -154,6 +158,7 @@ public class Controller {
 	// Update the Image after selection
 	public void imageSelect() throws IOException {
 		
+		
 		photoIdSelected = photoList.getSelectionModel().getSelectedIndex();
 		
 		Image image = new Image(photos.get(photoIdSelected).getImgSrc());
@@ -169,8 +174,10 @@ public class Controller {
 		+"Rover Name: "+photos.get(photoIdSelected).getRoverName()+"\n"
 		+"Rover Landing Date"+photos.get(photoIdSelected).getLandD()+"\n"
 		+"Rover Launching Date: "+photos.get(photoIdSelected).getLaunchD()+"\n"
-		+"Rover Status"+photos.get(photoIdSelected).getRoverStatus()+"\n"
+		+"Rover Status: "+photos.get(photoIdSelected).getRoverStatus()+"\n"
 		);
+		
+		imgSrcText.setText(photos.get(photoIdSelected).getImgSrc());
 		
 	}
 	
