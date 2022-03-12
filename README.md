@@ -1,2 +1,2 @@
 # marsAPI
-Java Program that helps acsess the Mars Rover Imagees and Meta Data
+Java program that helps acsess mars rover imagees and meta data
