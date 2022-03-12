@@ -1,2 +1,2 @@
 # marsAPI
-Java Program that uses NASA API to access MARS Photos
+Java Program that helps acsess the Mars Rover Imagees and Meta Data
