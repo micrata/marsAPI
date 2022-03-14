@@ -1,5 +1,8 @@
 package application;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -11,14 +14,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javax.imageio.ImageIO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -26,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -33,8 +34,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.util.concurrent.TimeUnit;
 
 public class Controller {
 
@@ -48,6 +52,8 @@ public class Controller {
 	private ListView<String> photoList;
 	@FXML
 	private TextField imgSrcText;
+	@FXML
+	private Button copyButton;
 	
 	ArrayList<Photo>photos = new ArrayList<Photo>();
 	
@@ -57,7 +63,15 @@ public class Controller {
 	
 	HashMap<String, Integer> idToPhoto = new HashMap<String,Integer>();
 	
+	Queue<Photo> photoHistory = new LinkedList<Photo>();
+	@FXML
+	Hyperlink historyButton = new Hyperlink();
+	
+	int mode = 1;
+	
 	private int photoIdSelected;
+	
+	int downloadID = 1;
 	
 	public void setImage() throws IOException{
 		
@@ -98,12 +112,15 @@ public class Controller {
 	
 	JSONArray apiPhotos = apiReturn.getJSONArray("photos");
 	
+	photos.clear();
+	
 	// Setting the Photos in the Photo List
 	for (int i = 0;i<apiPhotos.length();i++) {
 		
 		JSONObject apiPhoto = (JSONObject)apiPhotos.get(i);
 		
 		Photo rPhoto = new Photo();
+		
 		rPhoto.setId(Integer.toString(apiPhoto.getInt("id")));
 		
 		rPhoto.setSol(Integer.toString(apiPhoto.getInt("sol")));
@@ -141,15 +158,15 @@ public class Controller {
 	
 	for (int i = 0;i<photos.size();i++) {
 		
-		photoIds.add(photos.get(i).getId());
+		photoIds.add("Image: "+(i+1));
 		
 		idToPhoto.put(photos.get(i).getId(), i);
 		
 	}
 	
-	
 	// Update the Image List
 	photoList.getItems().clear();
+	
 	photoList.getItems().addAll(photoIds);
 	
 	conn.disconnect();
@@ -158,6 +175,7 @@ public class Controller {
 	// Update the Image after selection
 	public void imageSelect() throws IOException {
 		
+		copyButton.setText("Copy");
 		
 		photoIdSelected = photoList.getSelectionModel().getSelectedIndex();
 		
@@ -179,6 +197,91 @@ public class Controller {
 		
 		imgSrcText.setText(photos.get(photoIdSelected).getImgSrc());
 		
+		if(mode>0)
+		photoHistory.add(photos.get(photoIdSelected));
+		
 	}
+	
+	public void downloadImage() throws IOException {
+        // Sets the URL
+        URL url = new URL(photos.get(photoIdSelected).getImgSrc());
+
+        // Open input stream to initiate transfer
+        InputStream is = url.openStream();
+
+        // Open output stream to determine destination
+        OutputStream os = new FileOutputStream("Roverimage(" + downloadID + ").jpg");
+
+        // setting length of while loop. 1048576 = 1MB.
+        byte[] b = new byte[1048576];
+        int length;
+
+        // Writing directly into the output stream.
+        while ((length = is.read(b)) != -1) {
+            os.write(b, 0, length);
+        }
+
+        // Close both streams.
+        is.close();
+        os.close();
+        downloadID++;
+
+       
+        
+    }
+	
+	public void copyText() throws InterruptedException {
+		
+		Clipboard clip = Clipboard.getSystemClipboard();
+		
+		ClipboardContent cont = new ClipboardContent();
+		
+		cont.putString(photos.get(photoIdSelected).getImgSrc()); //Change ImgSrc to the proper variable or method to get the link
+		
+		clip.setContent(cont);
+		
+		copyButton.setText("Copied!");
+		
+	}
+
+	public void historyButtonM() throws IOException {
+		
+		mode*=-1;
+		
+		historyButton.setVisited(false);
+		
+		if (mode>0) {
+			
+			historyButton.setText("View History");
+			
+			setImage();
+			
+		}
+		else {
+			
+		photoList.getItems().clear();
+		
+		photoIds.clear();
+		
+		idToPhoto.clear();
+		
+		for (int i = 0;i<photoHistory.size();i++) {
+			
+			photoIds.add("Photo ID: "+photoHistory.peek().getId());
+			
+			idToPhoto.put(photoHistory.peek().getId(), i);
+			
+			photoHistory.add(photoHistory.remove());
+			
+		}
+		
+		photoList.getItems().addAll(photoIds);
+		
+		historyButton.setText("Photos");
+			
+		}
+		
+	}
+	
 	
 }
