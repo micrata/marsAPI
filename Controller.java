@@ -1,49 +1,39 @@
 package application;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
-import javax.imageio.ImageIO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.text.Text;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.util.concurrent.TimeUnit;
 
 public class Controller {
 
@@ -59,6 +49,8 @@ public class Controller {
 	private TextField imgSrcText;
 	@FXML
 	private Button copyButton;
+	@FXML
+	private AnchorPane anchorpane;
 	
 	ArrayList<Photo>photos = new ArrayList<Photo>();
 	
@@ -108,7 +100,6 @@ public class Controller {
 	scan.close();
 	
 	//JSON String from the Result Returned
-	
 	String apiJSON = apiResult.toString();
 
 	JSONObject apiReturn = new JSONObject(apiJSON);
@@ -117,7 +108,7 @@ public class Controller {
 	
 	photos.clear();
 	
-	// Setting the Photos in the Photo List
+	// Setting the Photos in the Photo List from JSON for API
 	for (int i = 0;i<apiPhotos.length();i++) {
 		
 		JSONObject apiPhoto = (JSONObject)apiPhotos.get(i);
@@ -154,7 +145,6 @@ public class Controller {
 	}
 	
 	// Change our Data Structure
-	
 	idToPhoto.clear();
 	
 	for (int i = 0;i<photos.size();i++) {
@@ -178,6 +168,7 @@ public class Controller {
 		
 		photoIdSelected = photoList.getSelectionModel().getSelectedIndex();
 		
+		if (photoIdSelected >=0) {
 		Image image = new Image(photos.get(photoIdSelected).getImgSrc());
 		
 		imageV.setImage(image);
@@ -189,27 +180,38 @@ public class Controller {
 		+"Rover ID: "+photos.get(photoIdSelected).getRoverId()+"\n"
 		+"Date: "+photos.get(photoIdSelected).getDate()+"\n"
 		+"Rover Name: "+photos.get(photoIdSelected).getRoverName()+"\n"
-		+"Rover Landing Date"+photos.get(photoIdSelected).getLandD()+"\n"
+		+"Rover Landing Date: "+photos.get(photoIdSelected).getLandD()+"\n"
 		+"Rover Launching Date: "+photos.get(photoIdSelected).getLaunchD()+"\n"
 		+"Rover Status: "+photos.get(photoIdSelected).getRoverStatus()+"\n"
 		);
 		
 		imgSrcText.setText(photos.get(photoIdSelected).getImgSrc());
 		
+		// If Mode is greater than 1 than we are in normal viewing mode so need to push to histroy
 		if(mode>0)
 		photoHistory.push(photos.get(photoIdSelected));
-		
+		}
 	}
 	
 	public void downloadImage() throws IOException {
         // Sets the URL
         URL url = new URL(photos.get(photoIdSelected).getImgSrc());
 
+        
+        DirectoryChooser f = new DirectoryChooser();
+        
+        Stage s = (Stage) anchorpane.getScene().getWindow();
+        
+        File f1  = f.showDialog(s);
+        
+        String filePath = f1.getAbsolutePath();
+        
+        
         // Open input stream to initiate transfer
         InputStream is = url.openStream();
 
         // Open output stream to determine destination
-        OutputStream os = new FileOutputStream("Roverimage(" + photos.get(photoIdSelected).getId() + ").jpg");
+        OutputStream os = new FileOutputStream(filePath+"/Roverimage(" + photos.get(photoIdSelected).getId() + ").jpg");
 
         // setting length of while loop. 1048576 = 1MB.
         byte[] b = new byte[1048576];
@@ -225,7 +227,7 @@ public class Controller {
         os.close(); 
         
     }
-	
+	// Copy to Clipboard Text
 	public void copyText() throws InterruptedException {
 		
 		Clipboard clip = Clipboard.getSystemClipboard();
