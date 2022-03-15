@@ -209,7 +209,7 @@ public class Controller {
         InputStream is = url.openStream();
 
         // Open output stream to determine destination
-        OutputStream os = new FileOutputStream("Roverimage(" + photos.get(photoIdSelected).getImgSrc() + ").jpg");
+        OutputStream os = new FileOutputStream("Roverimage(" + photos.get(photoIdSelected).getId() + ").jpg");
 
         // setting length of while loop. 1048576 = 1MB.
         byte[] b = new byte[1048576];
