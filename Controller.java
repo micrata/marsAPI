@@ -11,9 +11,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Stack;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 import javax.imageio.ImageIO;
 
 import org.json.JSONArray;
@@ -45,7 +50,7 @@ public class Controller {
 	@FXML
 	private ImageView imageV;
 	@FXML
-	private DatePicker dateInput;
+	private DatePicker  dateInput;
 	@FXML
 	private TextArea imageInfo;
 	@FXML
@@ -59,11 +64,10 @@ public class Controller {
 	
 	HttpURLConnection conn;
 	
-	ArrayList<String> photoIds = new ArrayList<String>();
+	HashMap<String, Integer> idToPhoto = new LinkedHashMap<String,Integer>();
 	
-	HashMap<String, Integer> idToPhoto = new HashMap<String,Integer>();
+	Stack<Photo> photoHistory = new Stack<Photo>();
 	
-	Queue<Photo> photoHistory = new LinkedList<Photo>();
 	@FXML
 	Hyperlink historyButton = new Hyperlink();
 	
@@ -71,15 +75,14 @@ public class Controller {
 	
 	private int photoIdSelected;
 	
-	int downloadID = 1;
-	
 	public void setImage() throws IOException{
 		
 	// Creation of the Date the User Inputs	
 	LocalDate sDate = dateInput.getValue();
 	
 	// Formation of apiKey for the date entered
-	String apiKey = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date="+sDate+"&api_key=Ri7l2K0C8IcYrKQRAtbYGekgYZekkJqS8G1ZMBkU";
+	String apiKey = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date="+sDate+
+	"&api_key=Ri7l2K0C8IcYrKQRAtbYGekgYZekkJqS8G1ZMBkU";
 	
 	
 	//URL Connection
@@ -152,13 +155,9 @@ public class Controller {
 	
 	// Change our Data Structure
 	
-	photoIds.clear();
-	
 	idToPhoto.clear();
 	
 	for (int i = 0;i<photos.size();i++) {
-		
-		photoIds.add("Image: "+(i+1));
 		
 		idToPhoto.put(photos.get(i).getId(), i);
 		
@@ -167,7 +166,7 @@ public class Controller {
 	// Update the Image List
 	photoList.getItems().clear();
 	
-	photoList.getItems().addAll(photoIds);
+	photoList.getItems().addAll(idToPhoto.keySet());
 	
 	conn.disconnect();
 	
@@ -198,7 +197,7 @@ public class Controller {
 		imgSrcText.setText(photos.get(photoIdSelected).getImgSrc());
 		
 		if(mode>0)
-		photoHistory.add(photos.get(photoIdSelected));
+		photoHistory.push(photos.get(photoIdSelected));
 		
 	}
 	
@@ -210,7 +209,7 @@ public class Controller {
         InputStream is = url.openStream();
 
         // Open output stream to determine destination
-        OutputStream os = new FileOutputStream("Roverimage(" + downloadID + ").jpg");
+        OutputStream os = new FileOutputStream("Roverimage(" + photos.get(photoIdSelected).getImgSrc() + ").jpg");
 
         // setting length of while loop. 1048576 = 1MB.
         byte[] b = new byte[1048576];
@@ -223,10 +222,7 @@ public class Controller {
 
         // Close both streams.
         is.close();
-        os.close();
-        downloadID++;
-
-       
+        os.close(); 
         
     }
 	
@@ -252,6 +248,10 @@ public class Controller {
 		
 		if (mode>0) {
 			
+			photoList.getItems().clear();
+			
+			idToPhoto.clear();
+			
 			historyButton.setText("View History");
 			
 			setImage();
@@ -259,27 +259,65 @@ public class Controller {
 		}
 		else {
 			
-		photoList.getItems().clear();
+		getHistory();
+			
+		}
 		
-		photoIds.clear();
+	}
+	
+	public void getHistory() throws IOException {
+		
+		photos.clear();
+		
+		photoList.getItems().clear();
 		
 		idToPhoto.clear();
 		
-		for (int i = 0;i<photoHistory.size();i++) {
+		Queue<Photo>auxS = new LinkedList<Photo>();
+		
+		int stackS = photoHistory.size();
+		
+		// Stack to Queue Twice to keep the same order of photoHistory (Stack)
+		
+		for (int i = 0;i<stackS;i++) {
 			
-			photoIds.add("Photo ID: "+photoHistory.peek().getId());
+			photos.add(photoHistory.peek());
 			
 			idToPhoto.put(photoHistory.peek().getId(), i);
 			
-			photoHistory.add(photoHistory.remove());
+			auxS.add(photoHistory.pop());
 			
 		}
 		
-		photoList.getItems().addAll(photoIds);
+		for (int i = 0;i<stackS;i++) {
+			
+			photoHistory.push(auxS.remove());
+			
+		}
+		
+		for (int i = 0;i<stackS;i++) {
+			
+			auxS.add(photoHistory.pop());;
+			
+		}
+		
+		for (int i = 0;i<stackS;i++) {
+			
+			photoHistory.push(auxS.remove());
+			
+		}
+		
+		
+		for (int i = 0;i<photoHistory.size();i++) {
+			
+			idToPhoto.put(photoHistory.get(i).getId(), i);
+			
+		}
+		
+		photoList.getItems().addAll(idToPhoto.keySet());
 		
 		historyButton.setText("Photos");
 			
-		}
 		
 	}
 	

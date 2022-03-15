@@ -96,4 +96,10 @@ public class Photo {
 	public String getRoverName() {
 		return roverName;
 	}
+	
+	public String toString() {
+		
+		return "ID: "+getId()+" Src: "+getImgSrc()+"\n";
+		
+	}
 }

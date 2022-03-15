@@ -24,7 +24,7 @@
          </font>
       </Label>
       <ImageView fx:id="imageV" fitHeight="270.0" fitWidth="365.0" layoutX="209.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" />
-      <ListView fx:id="photoList" layoutX="26.0" layoutY="112.0" onInputMethodTextChanged="#imageSelect" onKeyPressed="#setImage" onMouseClicked="#imageSelect" prefHeight="528.0" prefWidth="173.0" />
+      <ListView fx:id="photoList" layoutX="26.0" layoutY="112.0" onInputMethodTextChanged="#imageSelect" onKeyPressed="#imageSelect" onMouseClicked="#imageSelect" prefHeight="528.0" prefWidth="173.0" />
       <TextArea fx:id="imageInfo" editable="false" layoutX="209.0" layoutY="396.0" prefHeight="174.0" prefWidth="365.0">
          <font>
             <Font size="10.0" />
