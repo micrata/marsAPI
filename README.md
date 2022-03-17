@@ -9,7 +9,7 @@ In this Documentation here are the steps to run the program in <b>IntelliJ IDEA<
  Picture
 2. File -> New -> Project. Name the Project MARSAPI and click Next to build project
   Picture 
-3. Copy all the Components that are in <br>Main.java, Controller.java, and intro.fxml</br>, to <br>HelloApplication.java, HelloController.java, and hello-view.fxml</br>
+3. Copy all the Components that are in <b>Main.java, Controller.java, and intro.fxml</b>, to <b>HelloApplication.java, HelloController.java, and hello-view.fxml</b>
 4. Next add the JSON jar file provided in the ZIP to the project strucuture in IntelliJ
 5. Run the program!
 
