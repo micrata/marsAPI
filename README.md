@@ -12,6 +12,8 @@ side of the screen.
    - The rover name, camera name, image id, subject, date, time in sols since launch, and mission launch date are all accessible.
  - Once an entry is selected, an image's source link can be viewed and copied or the image can be downloaded via the
 "Copy" and "Download" buttons.
+ 
+ <b>Your will need JAVA FX and Java JDK Downloaded to run this program</b>
 
 ## Notes
 A place to store miscellaneous information about the application.
