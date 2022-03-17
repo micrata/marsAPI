@@ -5,9 +5,8 @@ This tool provides access to the Mars Rover Photos API's images and metadata thr
 <b>You need the JAVA FX Downloaded and JAVA JDK to run this program</b>
 In this Documentation here are the steps to run the program in <b>IntelliJ IDEA</b>
 <br>
-1. Create New JAVA FX Project in IntelliJ IDEA
- Picture
-2. File -> New -> Project. Name the Project MARSAPI and click Next to build project
+1. Create a New JAVA FX Project in IntelliJ ID by File -> New -> Project -> JAVAFX. Name the Project MARSAPI and click Next to build project
+2. <br>
   Picture 
 3. Copy all the Components that are in <b>Main.java, Controller.java, and intro.fxml</b>, to <b>HelloApplication.java, HelloController.java, and hello-view.fxml</b>
 4. Next add the JSON jar file provided in the ZIP to the project strucuture in IntelliJ
