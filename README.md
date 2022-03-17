@@ -2,7 +2,7 @@
 This tool provides access to the Mars Rover Photos API's images and metadata through a simple GUI.
 
 ## Installation
-Surely it will be as easy as launching the JAR once it is done?
+<b>You need the JAVA FX Downloaded and JAVA JDK to run this program</b>
 
 ## How To Use This Program
 This tool operates by getting all photos taken on a specific date, accessible through a drop-down menu on the top-left
