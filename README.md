@@ -9,7 +9,11 @@ In this Documentation here are the steps to run the program in <b>IntelliJ IDEA<
  Picture
 2. File -> New -> Project. Name the Project MARSAPI and click Next to build project
   Picture 
-3. 
+3. Copy all the Components that are in <br>Main.java, Controller.java, and intro.fxml</br>, to <br>HelloApplication.java, HelloController.java, and hello-view.fxml</br>
+4. Next add the JSON jar file provided in the ZIP to the project strucuture in IntelliJ
+5. Run the program!
+
+<h2>If you have any problem when running the program, please reach out to us in the Issues section and we will help you troubleshoot the program</h2>
 
 ## How To Use This Program
 This tool operates by getting all photos taken on a specific date, accessible through a drop-down menu on the top-left
