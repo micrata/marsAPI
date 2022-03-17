@@ -38,6 +38,8 @@ side of the screen.
  - Once an entry is selected, an image's source link can be viewed and copied or the image can be downloaded via the
 "Copy" and "Download" buttons.
  
+## Notes
+ - The database used to store images changed in 2020, as a result we only have access to photos taken and stored after the database shift. An image that appears in the list but does not appear in the application is one of these. You should still be able to copy the link to the image and paste it into a browser to access it.
 
 ## Credits & Sources
  - NASA and Chris Cerami, for access to their [Mars Rover Photos API](https://github.com/chrisccerami/mars-photo-api).
