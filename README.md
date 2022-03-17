@@ -3,6 +3,9 @@ This tool provides access to the Mars Rover Photos API's images and metadata thr
 
 ## Installation
 <b>You need the JAVA FX Downloaded and JAVA JDK to run this program</b>
+In this Documentation here are the steps to run the program in <b>IntelliJ IDEA</b>
+<br>
+1. Open a New FXML File in IntelliJ
 
 ## How To Use This Program
 This tool operates by getting all photos taken on a specific date, accessible through a drop-down menu on the top-left
