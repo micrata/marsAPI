@@ -12,7 +12,7 @@ In this Documentation here are the steps to run the program in <b>IntelliJ IDEA<
 4. Next add the JSON jar file provided in the ZIP to the project strucuture in IntelliJ
 5. Run the program!
 
-<h3>If you have any problem when running the program, please reach out to us in the Issues section and we will help you troubleshoot the program</h3>
+<h5>If you have any problem when running the program, please reach out to us in the Issues section and we will help you troubleshoot the program</h5>
 
 ## How To Use This Program
 This tool operates by getting all photos taken on a specific date, accessible through a drop-down menu on the top-left
