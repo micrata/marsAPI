@@ -2,18 +2,33 @@
 This tool provides access to the Mars Rover Photos API's images and metadata through a simple GUI.
 
 ## Installation
-<b>You need the JAVA FX Downloaded and JAVA JDK to run this program</b>
-In this Documentation here are the steps to run the program in <b>IntelliJ IDEA</b>
-<br>
-1. Create a New JAVA FX Project in IntelliJ ID by File -> New -> Project -> JAVAFX. Name the Project MARSAPI and click Next to build project
-2. <br>
-  Picture 
-3. Copy all the Components that are in <b>Main.java, Controller.java, and intro.fxml</b>, to <b>HelloApplication.java, HelloController.java, and hello-view.fxml</b>
-4. Next add the JSON jar file provided in the ZIP to the project strucuture in IntelliJ
-5. Run the program!
-
-<h5>If you have any problem when running the program, please reach out to us in the Issues section and we will help you troubleshoot the program</h5>
-
+ - Download the ZIP of the repository, unpack, and open it in an IDE of your choice.
+ ![This is an image of the file directory of the repository](https://cdn.discordapp.com/attachments/496087983779479584/954107093378539541/fileviewer.png)
+ - In your IDE, create a new JavaFX project of version 11.
+ ![This is an image of a new JavaFX project](https://cdn.discordapp.com/attachments/496087983779479584/954107093164626010/createproject.png)
+ - When the project has been created, refactor:
+   - "HelloController.java" to "Controller.java"
+   - "HelloApplication.java" to "Main.java"
+   - "hello-view.fxml" to "intro.fxml"
+ - Afterwards, in the same folder as the new Controller and Main, create a new class called "Photo".
+ ![This is an image of the path used in testing these steps](https://cdn.discordapp.com/attachments/496087983779479584/954107094095777852/inprojectfilepath.png)
+ - Replace the contents of the new "Controller.java", "Main.java", "intro.fxml", and "Photo.java".
+   - Copy the contents of the original "Controller.java" excluding the Package statement on line 1, then replace the contents
+of the new "Controller.java" with those that you've copied, excluding the Package statement.
+ ![This is an image of what's okay to replace](https://cdn.discordapp.com/attachments/496087983779479584/954107093814743060/hellocontrol_overwrite.png)
+   - Copy the contents of the original "Main.java" excluding the Package statement on line 1, then replace the contents
+of the new "Main.java" with those that you've copied, excluding the Package statement.
+ ![This is an image of what's okay to replace](https://cdn.discordapp.com/attachments/496087983779479584/954107093579886732/helloapp_overwrite.png)
+   - Replace the entirety of the new "intro.fxml" with the contents of the original "intro.fxml".
+ ![This is an image of what's okay to replace](https://cdn.discordapp.com/attachments/496087983779479584/954107094389387345/intro_overwrite.png)
+ - Navigate to the new "intro.fxml"s line 14 and change the path of fx:controller to fit within this project. In my
+       experience, it's just changing the filename.
+ - In Project Structure, add a new JAR/Directory Module and select the JSON packaged with the original classes. Enable it.
+ ![This is an image of the screen in IntelliJ](https://cdn.discordapp.com/attachments/496087983779479584/954107094653624420/module_creation.png)
+ - Once enabled, Build the project and navigate to the new "Controller.java". Go to the error on line 19, hover over it,
+and add 'Requires JSON' directive to "module-info.java".
+ - Build the program, run it, and enjoy! If you run into any issues, please create an issue on the github and we'll try to 
+respond promptly!
 ## How To Use This Program
 This tool operates by getting all photos taken on a specific date, accessible through a drop-down menu on the top-left
 side of the screen.
@@ -23,10 +38,8 @@ side of the screen.
  - Once an entry is selected, an image's source link can be viewed and copied or the image can be downloaded via the
 "Copy" and "Download" buttons.
  
- <b>Your will need JAVA FX and Java JDK Downloaded to run this program</b>
-
-## Notes
-A place to store miscellaneous information about the application.
 
 ## Credits & Sources
- - Oracle & Gluon, for their SceneBuilder which allowed us to quickly visualize the GUI.
+ - NASA and Chris Cerami, for access to their [Mars Rover Photos API](https://github.com/chrisccerami/mars-photo-api).
+ - Oracle & Gluon, for their [Scene Builder](https://gluonhq.com/products/scene-builder/) which allowed us to quickly visualize the GUI.
+ - Stackoverflow users jewelsea and Slaw for their [helpful advice](https://stackoverflow.com/questions/71366928/how-to-retrieve-image-from-web-in-java-fx).
