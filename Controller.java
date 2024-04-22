@@ -74,8 +74,7 @@ public class Controller {
 	
 	// Formation of apiKey for the date entered
 	String apiKey = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date="+sDate+
-	"&api_key=Ri7l2K0C8IcYrKQRAtbYGekgYZekkJqS8G1ZMBkU";
-	
+                "&api_key=DEMO_KEY";
 	
 	//URL Connection
 	URL url = new URL(apiKey.toString());
